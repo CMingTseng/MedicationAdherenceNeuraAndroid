@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "945238834126",
+    "firebase_url": "https://medicationeura.firebaseio.com",
+    "project_id": "medicationeura",
+    "storage_bucket": "medicationeura.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945238834126:android:72d7b4962e5bde26",
+        "android_client_info": {
+          "package_name": "com.neura.medication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945238834126-dov7h9ekte3ie6h54cqd96v6k369tkvg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.neura.medication",
+            "certificate_hash": "6B75009C57AFF3168D005F5618998BB5C60093F5"
+          }
+        },
+        {
+          "client_id": "945238834126-r7udj9lnford50p5ftt7pumaj0jssdil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ5irYyJnFz9KWgf_iEZ3TjLpXPrkQE6k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945238834126-r7udj9lnford50p5ftt7pumaj0jssdil.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

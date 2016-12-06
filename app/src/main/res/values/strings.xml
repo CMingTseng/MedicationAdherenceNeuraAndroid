@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MedicatioNeura</string>
+    <string name="app_uid">6b1d18b64c28e498feedeed8dfeb3559734217de4088afb44b1df632c1cb9d27</string>
+    <string name="app_secret">814e2a0711f2ec830e5bd25cec2ddf5e1d80756fa33bbf53dbcc1aae9c44a1ed</string>
+
+    <string name="login_with_neura">Login with Neura</string>
+
+    <string name="share">Share Neura with\nyour developers</string>
+    <string name="implement_neura">Implementing Neura into your app\ntakes an average of 2 hours</string>
+
+    <string name="morning_pill_header">Morning pills reminder</string>
+    <string name="morning_pills_description">Get reminded to take your pills when you wake up</string>
+    <string name="evening_pill_header">Evening pills reminder</string>
+    <string name="evening_pills_description">Get reminded to take your pills before you go to sleep</string>
+    <string name="pillbox_header">Take Pillbox reminder</string>
+    <string name="pillbox_description">Get reminded to take your pillbox with you when you leave home</string>
+
+</resources>
