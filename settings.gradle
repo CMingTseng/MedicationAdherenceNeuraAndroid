@@ -1,1 +1,1 @@
-include ':app', ':MedicatioNeurAddon'
+include ':MedicationSample', ':MedicatioNeurAddon'

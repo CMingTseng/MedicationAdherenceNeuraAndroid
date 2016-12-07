@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MedicatioNeurAddon/MedicatioNeurAddon.iml" filepath="$PROJECT_DIR$/MedicatioNeurAddon/MedicatioNeurAddon.iml" />
       <module fileurl="file://$PROJECT_DIR$/MedicatioNeura.iml" filepath="$PROJECT_DIR$/MedicatioNeura.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MedicationSample/MedicationSample.iml" filepath="$PROJECT_DIR$/MedicationSample/MedicationSample.iml" />
     </modules>
   </component>
 </project>

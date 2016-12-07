@@ -1,4 +1,4 @@
-package com.neura.medication.activity;
+package com.neura.medication;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.neura.medication.activity;
+package com.neura.medication;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.neura.medication.R;
 import com.neura.medicationaddon.NeuraManager;
 import com.neura.standalonesdk.util.SDKUtils;
 
