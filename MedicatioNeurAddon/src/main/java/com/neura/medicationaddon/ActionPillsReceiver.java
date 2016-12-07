@@ -32,19 +32,27 @@ public abstract class ActionPillsReceiver extends BroadcastReceiver {
      * or a pill box reminder to take when leaving home.
      * This is done with a notification presented to the user.
      * There are 2 options here :
-     * 1. If you wish to use a notifications as well, you can use this class's mechanism, and
-     * only provide the morning, evening and pillbox reminder icon you wish to present in the notification.
+     * 1. If you wish to use oa notifications as well, you can use this class's mechanism, and
+     * only provide the morning, evening and pillbox reminder icon yu wish to present in the notification.
      * 2. If you don't want to use a notification to show your user its time to take his/her morning
      * pill, you may override the method {@link #handlePillActionReceived(Context, String)}
      * in a receiver you set in your own class.
      */
-    protected abstract int getNotificationSmallIcon(Context context);
+    protected int getNotificationSmallIcon() {
+        return -1;
+    }
 
-    protected abstract int getMorningPillIcon(Context context);
+    protected int getMorningPillIcon() {
+        return R.mipmap.icon_morning;
+    }
 
-    protected abstract int getEveningPillIcon(Context context);
+    protected int getEveningPillIcon() {
+        return R.mipmap.icon_evening;
+    }
 
-    protected abstract int getPillBoxReminderIcon(Context context);
+    protected int getPillBoxReminderIcon() {
+        return R.mipmap.icon_pillbox;
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -73,13 +81,13 @@ public abstract class ActionPillsReceiver extends BroadcastReceiver {
     protected void handlePillActionReceived(Context context, String pillAction) {
         if (NeuraManager.ACTION_MORNING_PILL.equals(pillAction)) {
             displayNotification(context, pillAction, "Good morning!", "Time for your morning pill",
-                    getMorningPillIcon(context), "I took my pills");
+                    getMorningPillIcon(), "I took my pills");
         } else if (NeuraManager.ACTION_EVENING_PILL.equals(pillAction)) {
             displayNotification(context, pillAction, "Good evening!", "Time for your evening pill",
-                    getEveningPillIcon(context), "I took my pills");
+                    getEveningPillIcon(), "I took my pills");
         } else if (NeuraManager.ACTION_PILLBOX_REMINDER.equals(pillAction)) {
             displayNotification(context, pillAction, "Hi, wait..", "Don't forget to take your pillbox",
-                    getPillBoxReminderIcon(context), "I took my pillbox");
+                    getPillBoxReminderIcon(), "I took my pillbox");
         }
     }
 
@@ -91,7 +99,7 @@ public abstract class ActionPillsReceiver extends BroadcastReceiver {
 
         builder.setContentTitle(header)
                 .setContentText(content)
-                .setSmallIcon(getNotificationSmallIcon(context))
+                .setSmallIcon(getNotificationSmallIcon())
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), icon))
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis())

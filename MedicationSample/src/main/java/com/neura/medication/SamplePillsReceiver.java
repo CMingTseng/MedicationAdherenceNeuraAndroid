@@ -2,7 +2,6 @@ package com.neura.medication;
 
 import android.content.Context;
 
-import com.neura.medication.R;
 import com.neura.medicationaddon.ActionPillsReceiver;
 
 /**
@@ -27,9 +26,9 @@ import com.neura.medicationaddon.ActionPillsReceiver;
  * <p>
  * </intent-filter>
  * </receiver>
- * b. override the methods : {@link ActionPillsReceiver#getNotificationSmallIcon(Context)},
- * {@link ActionPillsReceiver#getMorningPillIcon(Context)}, {@link ActionPillsReceiver#getEveningPillIcon(Context)},
- * {@link ActionPillsReceiver#getPillBoxReminderIcon(Context)}, and give the icons you wish to set
+ * b. override the methods : {@link ActionPillsReceiver#getNotificationSmallIcon()},
+ * {@link ActionPillsReceiver#getMorningPillIcon()}, {@link ActionPillsReceiver#getEveningPillIcon()},
+ * {@link ActionPillsReceiver#getPillBoxReminderIcon()}, and give the icons you wish to set
  * in the notification.
  * 2. If you don't want to use the default notification display, override the method
  * {@link ActionPillsReceiver#handlePillActionReceived(Context, String)}
@@ -41,24 +40,27 @@ public class SamplePillsReceiver extends ActionPillsReceiver {
      * Option 1 - let Neura handle the events, and set your own icons to be displayed in the notification.
      */
     @Override
-    protected int getNotificationSmallIcon(Context context) {
+    protected int getNotificationSmallIcon() {
         return R.mipmap.ic_launcher;
     }
 
-    @Override
-    protected int getMorningPillIcon(Context context) {
-        return R.mipmap.morningicon;
-    }
-
-    @Override
-    protected int getEveningPillIcon(Context context) {
-        return R.mipmap.evening_icon;
-    }
-
-    @Override
-    protected int getPillBoxReminderIcon(Context context) {
-        return R.mipmap.pillboxicon;
-    }
+    /**
+     * Return your own resources, replacing icon_morning, icon_evening, icon_pillbox.
+     */
+//    @Override
+//    protected int getMorningPillIcon() {
+//
+//    }
+//
+//    @Override
+//    protected int getEveningPillIcon() {
+//
+//    }
+//
+//    @Override
+//    protected int getPillBoxReminderIcon() {
+//
+//    }
 
     /**
      * Option 2 - implement your own mechanism for handling events received from Neura.
