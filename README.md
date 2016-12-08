@@ -1,6 +1,6 @@
 ##MedicatioNeurAndroid
-* This project contains an addon which extends [NeuraSdk](https://dev.theneura.com/docs/guide/android/sdk) for medication application. 
-* Say you have a medication application, you can receive smart reminders for taking a morning pill, an evening pill and take the pillbox when you leave home. By utilizing Neura's smart reminders, you can distinguish your services from competitors. Instead of being sent on a fixed time, alerts come to your user at just the right moment, ensuring their relevance.
+* This project contains an addon which uses [NeuraSdk](https://dev.theneura.com/docs/guide/android/sdk).
+* Say you have a medication application, you can receive smart reminders for taking a morning pill, an evening pill and take the pillbox when you leave home. By utilizing Neura's smart reminders, you can distinguish your services from competitors. <br/><b>Instead of being sent on a fixed time, alerts come to your user at just the right moment, ensuring their relevance.</b>
 
 <img src="https://s4.postimg.org/4nzaecdvx/morning.png" alt="morning" width="280" height="498">
 <img src="https://s16.postimg.org/u74m3u351/pillbox.png" alt="pillbox" width="280" height="498">
@@ -8,12 +8,12 @@
 
 ##Requirements 
 1. Basic android knowledge.
-2. Android studio installed.
+2. [Android studio](https://developer.android.com/studio/index.html) installed.
 
 ##Down to business
-MedicatioNeurAndroid is devided to 2 inner projects : 
-* [MedicatioNeurAddon](https://github.com/NeuraLabs/MedicatioNeurAndroid/tree/master/MedicatioNeurAddon) : Library project, containing logic for registering to Neura api, receiving events from Neura, and displaying the pillbox reminders as displayed above.
-* [MedicationSample](https://github.com/NeuraLabs/MedicatioNeurAndroid/tree/master/MedicationSample): sample project using MedicatiNeurAndroid library
+MedicatioNeurAndroid is divided to 2 inner projects : 
+* [MedicatioNeurAddon](https://github.com/NeuraLabs/MedicatioNeurAndroid/tree/master/MedicatioNeurAddon) : Library project, containing logic for registering to Neura API, receiving events from Neura, and displaying the pillbox reminders as displayed above.
+* [MedicationSample](https://github.com/NeuraLabs/MedicatioNeurAndroid/tree/master/MedicationSample): Sample project using MedicatiNeurAddon library
 
 ##Setting this application to be your own
 If you wish to integrate MedicatioNeurAddon to your own projects(which is basically what [MedicationSample](https://github.com/NeuraLabs/MedicatioNeurAndroid/tree/master/MedicationSample) does), follow these steps:
@@ -23,10 +23,9 @@ If you wish to integrate MedicatioNeurAddon to your own projects(which is basica
   * In order to receive events (which is listed below) from Neura, define your 'Android Push Credentials' using [push notification](https://dev.theneura.com/docs/guide/android/pushnotification).
   * Under 'Permissions' select the events : 'Whenever a user wakes up', 'Whenever a user gets up', 'Whenever a user is about to sleep' and 'Whenever a user leaves home'.
 
-2. Pull this git project to your Android Studio environment : ```git clone https://github.com/NeuraLabs/MedicatioNeurAndroid.git```
+2. Pull this git project to your local environment : <br/>```git init```<br/>```git clone https://github.com/NeuraLabs/MedicatioNeurAndroid.git```
 
-3. Copy MedicatioNeurAddon project to your own project.
-<br/>Make sure that on settings.gradle file, you're including the add on : ```include ':app', ':MedicatioNeurAddon'```
+3. Import the addon to your project by selecting in the Android Studio menu : File -> New -> Import Module.
 
 4. Add to your project's gradle file : 
   ```
@@ -67,10 +66,10 @@ If you wish to integrate MedicatioNeurAddon to your own projects(which is basica
 8. That's it, you're done.
 
 ##Testing while developing
-Obviously, it's not very convenient for you to detect when events occure on realtime, so, Neura has generated 
-an [events simulation](http://docs.theneura.com/android/com/neura/standalonesdk/service/NeuraApiClient.html#simulateAnEvent--), and you can connect it with your application by calling : ```NeuraManager.getInstance().getNeuraClient().simulateAnEvent();``` .
+Obviously, it's not very convenient for you to detect when events occur on realtime, so, Neura has generated 
+an [events simulation](http://docs.theneura.com/android/com/neura/standalonesdk/service/NeuraApiClient.html#simulateAnEvent--), and you can connect it with your application by calling : ```NeuraManager.getInstance().getNeuraClient().simulateAnEvent();```
 
 ##Support
 1. Go to <a href="https://dev.theneura.com/docs/getstarted">getting started with Neura</a> for more details.
-2. You can read classes and api methods at <a href ="http://docs.theneura.com/android/com/neura/standalonesdk/service/NeuraApiClient.html">Neura Sdk Reference</a>.
+2. You can read classes and API methods at <a href ="http://docs.theneura.com/android/com/neura/standalonesdk/service/NeuraApiClient.html">Neura Sdk Reference</a>.
 3. You can ask question and view existing questions with the Neura tag on <a href="https://stackoverflow.com/questions/tagged/neura?sort=newest&pageSize=30">StackOverflow</a>.
