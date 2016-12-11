@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
  * 1. Set the fallback to 11 am every time the phone restarts (by listening to {@link Intent#ACTION_BOOT_COMPLETED}
  * 2. Receives the fallback at 11am and handle it like a 'fake' wake up event.
  */
-public class MorningPillFallbackService extends Service {
+public class PillsService extends Service {
 
     @Nullable
     @Override
@@ -27,7 +27,7 @@ public class MorningPillFallbackService extends Service {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction()))
             NeuraManager.getInstance().setMorningPillFallback(this);
         else
-            NeuraManager.getInstance().eventReceived(this, null);
+            NeuraManager.getInstance().generateNotification(this, intent.getAction());
 
         return START_STICKY;
     }

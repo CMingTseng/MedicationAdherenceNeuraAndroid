@@ -27,5 +27,15 @@
         android:textColor="@color/colorAccent"
         android:textSize="14sp" />
 
+    <Button
+        android:id="@+id/simulate_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="20dp"
+        android:text="@string/simulate_event"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp" />
+
 
 </RelativeLayout>

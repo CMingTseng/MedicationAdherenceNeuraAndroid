@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 
@@ -43,7 +42,7 @@ public class NeuraManager {
 
     private static final String EVENT_WAKE_UP = "userWokeUp";
     private static final String EVENT_GOT_UP = "userGotUp";
-    private static final String EVENT_BEDTIME = ""; //TODO
+    private static final String EVENT_BEDTIME = "userIsAboutToGoToSleep";
     private static final String EVENT_LEFT_HOME = "userLeftHome";
 
     /**
@@ -52,6 +51,8 @@ public class NeuraManager {
     public static final String ACTION_MORNING_PILL = "com.neura.medicationaddon.MorningPill";
     public static final String ACTION_EVENING_PILL = "com.neura.medicationaddon.EveningPill";
     public static final String ACTION_PILLBOX_REMINDER = "com.neura.medicationaddon.PillBoxReminder";
+
+    private static final long ONE_MINUTE = 60 * 1000;
 
     public NeuraApiClient getNeuraClient() {
         return mNeuraApiClient;
@@ -122,7 +123,8 @@ public class NeuraManager {
      * @param context
      */
     public void setMorningPillFallback(Context context) {
-        Intent intent = new Intent(context, MorningPillFallbackService.class);
+        Intent intent = new Intent(context, PillsService.class);
+        intent.setAction(ACTION_MORNING_PILL);
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -132,7 +134,7 @@ public class NeuraManager {
         Calendar calendarNow = Calendar.getInstance();
         calendarNow.setTimeInMillis(currentTime);
         //If the current time now < 11, we're setting the alarm for the 1st trigger to be today at 11. if not - tomorrow at 11.
-        calendar.setTimeInMillis(currentTime + (calendarNow.get(Calendar.HOUR_OF_DAY) < 11 ? 0 : 60 * 60 * 1000 * 24));
+        calendar.setTimeInMillis(currentTime + (calendarNow.get(Calendar.HOUR_OF_DAY) < 11 ? 0 : ONE_MINUTE * 60 * 24));
         calendar.set(Calendar.HOUR_OF_DAY, 11); //Everyday at
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -142,18 +144,27 @@ public class NeuraManager {
                 AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
+    private void setTakePillboxReminder(Context context) {
+        Intent intent = new Intent(context, PillsService.class);
+        intent.setAction(ACTION_PILLBOX_REMINDER);
+        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + ONE_MINUTE * 30, pendingIntent);
+    }
+
     /**
      * @param context   current application's context
      * @param eventName {@link NeuraEvent#getEventName()} as received from broadcast receiver which
      *                  listens to com.neura.android.ACTION_NEURA_STATE_ALERT.
-     *                  Could be null, when coming from {@link MorningPillFallbackService}
+     *                  Could be null, when coming from {@link PillsService}
      *                  in this case - this is a {@link #ACTION_MORNING_PILL} for sure.
      */
     public void eventReceived(Context context, String eventName) {
-        if (TextUtils.isEmpty(eventName) || EVENT_WAKE_UP.equalsIgnoreCase(eventName)) {
+        if (EVENT_WAKE_UP.equalsIgnoreCase(eventName)) {
             generateNotification(context, ACTION_MORNING_PILL);
         } else if (EVENT_GOT_UP.equalsIgnoreCase(eventName)) {
             generateNotification(context, ACTION_MORNING_PILL);
+            setTakePillboxReminder(context); //Setting reminder for taking pill box, when userGotUp event is received.
         } else if (EVENT_LEFT_HOME.equalsIgnoreCase(eventName)) {
             generateNotification(context, ACTION_MORNING_PILL);
             generateNotification(context, ACTION_PILLBOX_REMINDER);
@@ -174,7 +185,7 @@ public class NeuraManager {
         prefs.edit().putLong(actionPill, System.currentTimeMillis()).commit();
     }
 
-    private void generateNotification(Context context, String action) {
+    public void generateNotification(Context context, String action) {
         if (!DateUtils.isToday(PreferenceManager.getDefaultSharedPreferences(context).getLong(action, 0)))
             context.sendBroadcast(new Intent(action));
     }

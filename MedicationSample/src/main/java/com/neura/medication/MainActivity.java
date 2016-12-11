@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final View loginButton = findViewById(R.id.login_with_neura);
-
+        final View simulateEventButton = findViewById(R.id.simulate_event);
         /**
          * Init Neura instance. If you have an {@link android.app.Application} class, better call
          * {@link NeuraManager#initNeuraConnection(Context, String, String)} from the Application's onCreate.
@@ -29,21 +29,32 @@ public class MainActivity extends AppCompatActivity {
         if (SDKUtils.isConnected(this, NeuraManager.getInstance().getNeuraClient())) {
             loginButton.setVisibility(View.GONE);
         } else {
-            loginButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    NeuraManager.getInstance().authenticateWithNeura(MainActivity.this, new Handler.Callback() {
-                        @Override
-                        public boolean handleMessage(Message message) {
-                            if (message.arg1 == 1) {
-                                loginButton.setVisibility(View.GONE);
-                            }
-                            return false;
-                        }
-                    });
-                }
-            });
+            simulateEventButton.setVisibility(View.GONE);
         }
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NeuraManager.getInstance().authenticateWithNeura(MainActivity.this, new Handler.Callback() {
+                    @Override
+                    public boolean handleMessage(Message message) {
+                        if (message.arg1 == 1) {
+                            loginButton.setVisibility(View.GONE);
+                            simulateEventButton.setVisibility(View.VISIBLE);
+                        }
+                        return false;
+                    }
+                });
+            }
+        });
+
+        //In order to debug events, you can generate a 'fake' event from the dialog.
+        simulateEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NeuraManager.getInstance().getNeuraClient().simulateAnEvent();
+            }
+        });
     }
 
 }

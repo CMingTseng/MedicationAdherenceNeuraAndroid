@@ -4,6 +4,7 @@
     <string name="app_secret">814e2a0711f2ec830e5bd25cec2ddf5e1d80756fa33bbf53dbcc1aae9c44a1ed</string>
 
     <string name="login_with_neura">Login with Neura</string>
+    <string name="simulate_event">Simulate an event</string>
 
     <string name="share">Share Neura with\nyour developers</string>
     <string name="implement_neura">Implementing Neura into your app\ntakes an average of 2 hours</string>
