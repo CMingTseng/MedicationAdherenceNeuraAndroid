@@ -173,18 +173,6 @@ public class NeuraManager {
         }
     }
 
-    /**
-     * Call this method when your user 'takes the pill', and you don't want to be notified for it.
-     *
-     * @param context
-     * @param actionPill taken from : {@link #ACTION_MORNING_PILL} or {@link #ACTION_EVENING_PILL}
-     *                   or {@link #ACTION_PILLBOX_REMINDER}
-     */
-    public void stopNotifyPillForToday(Context context, String actionPill) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.edit().putLong(actionPill, System.currentTimeMillis()).commit();
-    }
-
     public void generateNotification(Context context, String action) {
         if (!DateUtils.isToday(PreferenceManager.getDefaultSharedPreferences(context).getLong(action, 0)))
             context.sendBroadcast(new Intent(action));

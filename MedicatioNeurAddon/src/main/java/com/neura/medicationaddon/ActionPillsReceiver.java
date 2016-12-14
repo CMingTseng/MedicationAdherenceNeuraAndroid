@@ -69,7 +69,7 @@ public abstract class ActionPillsReceiver extends BroadcastReceiver {
 
             //Letting the Medication addon know not to bother me again with the pill, since the user
             //clicked 'took the pill' option from the notification action.
-            NeuraManager.getInstance().stopNotifyPillForToday(context, actionPill);
+            stopNotifyPillForToday(context, actionPill);
         } else if (ACTION_NOTIFICATION_REMIND_ME_LATER.equals(action)) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.cancel(intent.getExtras().getInt(NOTIFICATION_ID));
@@ -89,6 +89,20 @@ public abstract class ActionPillsReceiver extends BroadcastReceiver {
             displayNotification(context, pillAction, "Hi, wait..", "Don't forget to take your pillbox",
                     getPillBoxReminderIcon(), "I took my pillbox");
         }
+    }
+
+    /**
+     * Call this method when your user 'takes the pill', and you don't want to be notified for it.
+     * Override this method, and call super, if you wish to add functionality to 'i took my pills'
+     * click by the user.
+     *
+     * @param context
+     * @param actionPill taken from : {@link NeuraManager#ACTION_MORNING_PILL} or {@link NeuraManager#ACTION_EVENING_PILL}
+     *                   or {@link NeuraManager#ACTION_PILLBOX_REMINDER}
+     */
+    public void stopNotifyPillForToday(Context context, String actionPill) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.edit().putLong(actionPill, System.currentTimeMillis()).commit();
     }
 
     private void displayNotification(Context context, String actionPill, String header,
