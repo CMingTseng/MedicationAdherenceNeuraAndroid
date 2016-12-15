@@ -5,7 +5,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -51,6 +50,8 @@ public class NeuraManager {
     public static final String ACTION_MORNING_PILL = "com.neura.medicationaddon.MorningPill";
     public static final String ACTION_EVENING_PILL = "com.neura.medicationaddon.EveningPill";
     public static final String ACTION_PILLBOX_REMINDER = "com.neura.medicationaddon.PillBoxReminder";
+
+    private static final int FALLBACK_MORNING_PILL = 11;
 
     private static final long ONE_MINUTE = 60 * 1000;
 
@@ -134,8 +135,8 @@ public class NeuraManager {
         Calendar calendarNow = Calendar.getInstance();
         calendarNow.setTimeInMillis(currentTime);
         //If the current time now < 11, we're setting the alarm for the 1st trigger to be today at 11. if not - tomorrow at 11.
-        calendar.setTimeInMillis(currentTime + (calendarNow.get(Calendar.HOUR_OF_DAY) < 11 ? 0 : ONE_MINUTE * 60 * 24));
-        calendar.set(Calendar.HOUR_OF_DAY, 11); //Everyday at
+        calendar.setTimeInMillis(currentTime + (calendarNow.get(Calendar.HOUR_OF_DAY) < FALLBACK_MORNING_PILL ? 0 : ONE_MINUTE * 60 * 24));
+        calendar.set(Calendar.HOUR_OF_DAY, FALLBACK_MORNING_PILL); //Everyday at
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.setTimeZone(TimeZone.getDefault());
@@ -160,13 +161,17 @@ public class NeuraManager {
      *                  in this case - this is a {@link #ACTION_MORNING_PILL} for sure.
      */
     public void eventReceived(Context context, String eventName) {
-        if (EVENT_WAKE_UP.equalsIgnoreCase(eventName)) {
+
+        boolean isMorningValid = isMorningValid();
+
+        if (EVENT_WAKE_UP.equalsIgnoreCase(eventName) && isMorningValid) {
             generateNotification(context, ACTION_MORNING_PILL);
-        } else if (EVENT_GOT_UP.equalsIgnoreCase(eventName)) {
+        } else if (EVENT_GOT_UP.equalsIgnoreCase(eventName) && isMorningValid) {
             generateNotification(context, ACTION_MORNING_PILL);
             setTakePillboxReminder(context); //Setting reminder for taking pill box, when userGotUp event is received.
         } else if (EVENT_LEFT_HOME.equalsIgnoreCase(eventName)) {
-            generateNotification(context, ACTION_MORNING_PILL);
+            if (isMorningValid)
+                generateNotification(context, ACTION_MORNING_PILL);
             generateNotification(context, ACTION_PILLBOX_REMINDER);
         } else if (EVENT_BEDTIME.equalsIgnoreCase(eventName)) {
             generateNotification(context, ACTION_EVENING_PILL);
@@ -176,5 +181,19 @@ public class NeuraManager {
     public void generateNotification(Context context, String action) {
         if (!DateUtils.isToday(PreferenceManager.getDefaultSharedPreferences(context).getLong(action, 0)))
             context.sendBroadcast(new Intent(action));
+    }
+
+    /**
+     * After {@link #FALLBACK_MORNING_PILL} time, we don't want to alert the morning pills reminder.
+     * (having some delayed time after 11 am in case the morning alert set in {@link #setMorningPillFallback(Context)}
+     * is sent from the os a few min after 11am.
+     *
+     * @return true if current time <= {@link #FALLBACK_MORNING_PILL}
+     */
+    private boolean isMorningValid() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        return calendar.get(Calendar.HOUR_OF_DAY) <= FALLBACK_MORNING_PILL && calendar.get(Calendar.MINUTE) <= 10;
     }
 }
