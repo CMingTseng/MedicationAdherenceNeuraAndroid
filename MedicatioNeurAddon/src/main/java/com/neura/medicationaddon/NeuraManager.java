@@ -194,6 +194,9 @@ public class NeuraManager {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
-        return calendar.get(Calendar.HOUR_OF_DAY) <= FALLBACK_MORNING_PILL && calendar.get(Calendar.MINUTE) <= 10;
+        final int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        final int minute = calendar.get(Calendar.MINUTE);
+
+        return hourOfDay < FALLBACK_MORNING_PILL || (hourOfDay == FALLBACK_MORNING_PILL && minute <= 10);
     }
 }

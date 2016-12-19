@@ -135,5 +135,6 @@ public abstract class ActionPillsReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(icon, notification);
 
+        stopNotifyPillForToday(context, actionPill);
     }
 }
