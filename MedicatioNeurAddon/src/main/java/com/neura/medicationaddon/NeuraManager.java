@@ -90,16 +90,18 @@ public class NeuraManager {
 
         final ArrayList<Permission> permissions = Permission.list(new String[]{
                  PERM_SLEEP, PERM_HOME});
-
+        
+        final String[] events = new String[]{EVENT_WAKE_UP, EVENT_GOT_UP, EVENT_BEDTIME, EVENT_LEFT_HOME};
+        
         AuthenticationRequest request = new AuthenticationRequest(permissions);
         mNeuraApiClient.authenticate(request, new AuthenticateCallback() {
             @Override
             public void onSuccess(AuthenticateData authenticateData) {
                 Log.i(getClass().getSimpleName(), "Successfully authenticate with neura." + "Token : " + authenticateData.getAccessToken());
                 mNeuraApiClient.registerFirebaseToken(activity, FirebaseInstanceId.getInstance().getToken());
-                for (int i = 0; i < permissions.size(); i++)
-                    mNeuraApiClient.subscribeToEvent(permissions.get(i).getName(),
-                            "identifier_" + permissions.get(i).getName(), subscriptionRequestCallbacks);
+                for (int i = 0; i < events.length; i++)
+                    mNeuraApiClient.subscribeToEvent(events[i],
+                            "identifier_" + events[i], subscriptionRequestCallbacks);
                 message.arg1 = 1;
                 callback.handleMessage(message);
                 NeuraManager.getInstance().setMorningPillFallback(mNeuraApiClient.getContext());
