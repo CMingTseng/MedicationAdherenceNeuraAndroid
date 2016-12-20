@@ -43,6 +43,8 @@ public class NeuraManager {
     private static final String EVENT_GOT_UP = "userGotUp";
     private static final String EVENT_BEDTIME = "userIsAboutToGoToSleep";
     private static final String EVENT_LEFT_HOME = "userLeftHome";
+    private static final String PERM_SLEEP = "sleepingHabits";
+    private static final String PERM_HOME = "presenceAtHome";
 
     /**
      * DO NOT change the values, it correlates with the service which receives the intent.
@@ -87,7 +89,7 @@ public class NeuraManager {
         final Message message = new Message();
 
         final ArrayList<Permission> permissions = Permission.list(new String[]{
-                EVENT_WAKE_UP, EVENT_GOT_UP, EVENT_BEDTIME, EVENT_LEFT_HOME});
+                 PERM_SLEEP, PERM_HOME});
 
         AuthenticationRequest request = new AuthenticationRequest(permissions);
         mNeuraApiClient.authenticate(request, new AuthenticateCallback() {
