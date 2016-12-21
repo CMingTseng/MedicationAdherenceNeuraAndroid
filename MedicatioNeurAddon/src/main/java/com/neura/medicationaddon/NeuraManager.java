@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -89,10 +90,10 @@ public class NeuraManager {
         final Message message = new Message();
 
         final ArrayList<Permission> permissions = Permission.list(new String[]{
-                 PERM_SLEEP, PERM_HOME});
-        
+                PERM_SLEEP, PERM_HOME });
+
         final String[] events = new String[]{EVENT_WAKE_UP, EVENT_GOT_UP, EVENT_BEDTIME, EVENT_LEFT_HOME};
-        
+
         AuthenticationRequest request = new AuthenticationRequest(permissions);
         mNeuraApiClient.authenticate(request, new AuthenticateCallback() {
             @Override
@@ -154,7 +155,14 @@ public class NeuraManager {
         intent.setAction(ACTION_PILLBOX_REMINDER);
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + ONE_MINUTE * 30, pendingIntent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + ONE_MINUTE * 30, pendingIntent);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + ONE_MINUTE * 30, pendingIntent);
+        } else {
+            am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + ONE_MINUTE * 30, pendingIntent);
+        }
     }
 
     /**
@@ -176,7 +184,7 @@ public class NeuraManager {
         } else if (EVENT_LEFT_HOME.equalsIgnoreCase(eventName)) {
             if (isMorningValid)
                 generateNotification(context, ACTION_MORNING_PILL);
-            generateNotification(context, ACTION_PILLBOX_REMINDER);
+//            generateNotification(context, ACTION_PILLBOX_REMINDER);
         } else if (EVENT_BEDTIME.equalsIgnoreCase(eventName)) {
             generateNotification(context, ACTION_EVENING_PILL);
         }
