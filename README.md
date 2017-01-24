@@ -31,7 +31,7 @@ If you wish to integrate MedicatioNeurAddon to your own projects(which is basica
   ```
   dependencies {
       compile project(':MedicatioNeurAddon')
-      compile 'com.theneura:android-sdk:4.0.9'
+      compile 'com.theneura:android-sdk:*'
   }
   ```
   
