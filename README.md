@@ -11,26 +11,26 @@
 2. [Android studio](https://developer.android.com/studio/index.html) installed.
 
 ##Down to business
-MedicatioNeurAndroid is divided to 2 inner projects : 
-* [MedicatioNeurAddon](https://github.com/NeuraLabs/MedicatioNeurAndroid/tree/master/MedicatioNeurAddon) : Library project, containing logic for registering to Neura API, receiving events from Neura, and displaying the pillbox reminders as displayed above.
-* [MedicationSample](https://github.com/NeuraLabs/MedicatioNeurAndroid/tree/master/MedicationSample): Sample project using MedicatiNeurAddon library
+MedicationAdherenceNeuraAndroid is divided to 2 inner projects : 
+* [MedicationNeuraAddon](https://github.com/NeuraLabs/MedicationAdherenceNeuraAndroid/tree/master/MedicationNeuraAddon) : Library project, containing logic for registering to Neura API, receiving events from Neura, and displaying the pillbox reminders as displayed above.
+* [MedicationSample](https://github.com/NeuraLabs/MedicationAdherenceNeuraAndroid/tree/master/MedicationSample): Sample project using MedicatiNeurAddon library
 
 ##Setting this application to be your own
-If you wish to integrate MedicatioNeurAddon to your own projects(which is basically what [MedicationSample](https://github.com/NeuraLabs/MedicatioNeurAndroid/tree/master/MedicationSample) does), follow these steps:
+If you wish to integrate MedicationNeuraAddon to your own projects(which is basically what [MedicationSample](https://github.com/NeuraLabs/MedicationAdherenceNeuraAndroid/tree/master/MedicationSample) does), follow these steps:
 
 1. [Create your application](https://dev.theneura.com/console/new)
   * Make sure that under 'Tech Info' (2nd section) you're specifying your own 'Application Package Name'. 
   * In order to receive events (which is listed below) from Neura, define your 'Android Push Credentials' using [push notification](https://dev.theneura.com/docs/guide/android/pushnotification).
   * Under 'Permissions' select the events : 'Whenever a user wakes up', 'Whenever a user gets up', 'Whenever a user is about to sleep' and 'Whenever a user leaves home'.
 
-2. Pull this git project to your local environment : <br/>```git init```<br/>```git clone https://github.com/NeuraLabs/MedicatioNeurAndroid.git```
+2. Pull this git project to your local environment : <br/>```git init```<br/>```git clone https://github.com/NeuraLabs/MedicationAdherenceNeuraAndroid.git```
 
 3. Import the addon to your project by selecting in the Android Studio menu : File -> New -> Import Module.
 
 4. Add to your project's gradle file : 
   ```
   dependencies {
-      compile project(':MedicatioNeurAddon')
+      compile project(':MedicationNeuraAddon')
       compile 'com.theneura:android-sdk:+'
   }
   ```
@@ -51,7 +51,7 @@ If you wish to integrate MedicatioNeurAddon to your own projects(which is basica
         </receiver>
        ```
        
-  * Create the class [SamplePillsReceiver](https://github.com/NeuraLabs/MedicatioNeurAndroid/blob/master/MedicationSample/src/main/java/com/neura/medication/SamplePillsReceiver.java), which extends ActionPillsReceiver.<br/>
+  * Create the class [SamplePillsReceiver](https://github.com/NeuraLabs/MedicationAdherenceNeuraAndroid/blob/master/MedicationSample/src/main/java/com/neura/medication/SamplePillsReceiver.java), which extends ActionPillsReceiver.<br/>
 <b>You have 2 options:</b>      
   
           a.  ActionPillsReceiver showing the notifications for you. If you want to set the icons to be displayed to the notification, override : ```getNotificationSmallIcon```, ```getMorningPillIcon```,  ```getEveningPillIcon```, ```getPillBoxReminderIcon```.
