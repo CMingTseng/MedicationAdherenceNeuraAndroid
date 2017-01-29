@@ -20,7 +20,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':MedicatioNeurAddon')
+    compile project(':MedicationNeuraAddon')
     compile 'com.theneura:android-sdk:4.1.0'
 }
 

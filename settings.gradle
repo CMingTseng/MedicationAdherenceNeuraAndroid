@@ -1,1 +1,1 @@
-include ':MedicationSample', ':MedicatioNeurAddon'
+include ':MedicationSample', ':MedicationNeuraAddon'

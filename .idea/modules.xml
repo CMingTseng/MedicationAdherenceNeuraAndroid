@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MedicatioNeurAddon/MedicatioNeurAddon.iml" filepath="$PROJECT_DIR$/MedicatioNeurAddon/MedicatioNeurAddon.iml" />
       <module fileurl="file://$PROJECT_DIR$/MedicatioNeura.iml" filepath="$PROJECT_DIR$/MedicatioNeura.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MedicationAdherenceNeuraAndroid.iml" filepath="$PROJECT_DIR$/MedicationAdherenceNeuraAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MedicationNeuraAddon/MedicationNeuraAddon.iml" filepath="$PROJECT_DIR$/MedicationNeuraAddon/MedicationNeuraAddon.iml" />
       <module fileurl="file://$PROJECT_DIR$/MedicationSample/MedicationSample.iml" filepath="$PROJECT_DIR$/MedicationSample/MedicationSample.iml" />
     </modules>
   </component>
