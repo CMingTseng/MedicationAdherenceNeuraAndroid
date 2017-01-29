@@ -1,4 +1,4 @@
-##MedicatioNeurAndroid
+##MedicationAdherenceNeuraAndroid
 * This project contains an addon which uses [NeuraSdk](https://dev.theneura.com/docs/guide/android/sdk).
 * Say you have a medication application, you can receive smart reminders for taking a morning pill, an evening pill and take the pillbox when you leave home. By utilizing Neura's smart reminders, you can distinguish your services from competitors. <br/><b>Instead of being sent on a fixed time, alerts come to your user at just the right moment, ensuring their relevance.</b>
 
