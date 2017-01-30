@@ -134,7 +134,5 @@ public abstract class ActionPillsReceiver extends BroadcastReceiver {
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(icon, notification);
-
-        stopNotifyPillForToday(context, actionPill);
     }
 }
