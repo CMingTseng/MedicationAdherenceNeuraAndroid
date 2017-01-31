@@ -21,7 +21,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':MedicationNeuraAddon')
-    compile 'com.theneura:android-sdk:4.1.0'
+    compile 'com.theneura:android-sdk:+'
 }
 
 apply plugin: 'com.google.gms.google-services'
