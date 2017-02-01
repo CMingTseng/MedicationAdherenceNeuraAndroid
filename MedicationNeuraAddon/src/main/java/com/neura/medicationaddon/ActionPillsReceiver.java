@@ -39,7 +39,7 @@ public abstract class ActionPillsReceiver extends BroadcastReceiver {
      * in a receiver you set in your own class.
      */
     protected int getNotificationSmallIcon() {
-        return -1;
+        return R.mipmap.ic_event_white_24dp;
     }
 
     protected int getMorningPillIcon() {
