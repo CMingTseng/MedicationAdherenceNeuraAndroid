@@ -1,4 +1,4 @@
-##MedicationAdherenceNeuraAndroid
+# MedicationAdherenceNeuraAndroid
 * This project contains an addon which uses [NeuraSdk](https://dev.theneura.com/docs/guide/android/setup).
 * Say you have a medication application, you can receive smart reminders for taking a morning pill, an evening pill and take the pillbox when you leave home. By utilizing Neura's smart reminders, you can distinguish your services from competitors. <br/><b>Instead of being sent on a fixed time, alerts come to your user at just the right moment, ensuring their relevance.</b>
 
@@ -6,16 +6,16 @@
 <img src="https://s16.postimg.org/u74m3u351/pillbox.png" alt="pillbox" width="280" height="498">
 <img src="https://s18.postimg.org/5tg2oz0i1/evening.png" alt="evening" width="280" height="498">
 
-##Requirements 
+## Requirements 
 1. Basic android knowledge.
 2. [Android studio](https://developer.android.com/studio/index.html) installed.
 
-##Down to business
+## Down to business
 MedicationAdherenceNeuraAndroid is divided to 2 inner projects : 
 * [MedicationNeuraAddon](https://github.com/NeuraLabs/MedicationAdherenceNeuraAndroid/tree/master/MedicationNeuraAddon) : Library project, containing logic for registering to Neura API, receiving events from Neura, and displaying the pillbox reminders as displayed above.
 * [MedicationSample](https://github.com/NeuraLabs/MedicationAdherenceNeuraAndroid/tree/master/MedicationSample): Sample project using MedicatiNeurAddon library
 
-##Setting this application to be your own
+## Setting this application to be your own
 If you wish to integrate MedicationNeuraAddon to your own projects(which is basically what [MedicationSample](https://github.com/NeuraLabs/MedicationAdherenceNeuraAndroid/tree/master/MedicationSample) does), follow these steps:
 
 1. [Create your application](https://dev.theneura.com/console/new)
@@ -65,11 +65,11 @@ If you wish to integrate MedicationNeuraAddon to your own projects(which is basi
 
 8. That's it, you're done.
 
-##Testing while developing
+## Testing while developing
 Obviously, it's not very convenient for you to detect when events occur on realtime, so, Neura has generated 
 an [events simulation](http://docs.theneura.com/android/com/neura/standalonesdk/service/NeuraApiClient.html#simulateAnEvent--), and you can connect it with your application by calling : ```NeuraManager.getInstance().getNeuraClient().simulateAnEvent();```
 
-##Support
+## Support
 1. Go to <a href="https://dev.theneura.com/docs/getstarted">getting started with Neura</a> for more details.
 2. You can read classes and API methods at <a href ="http://docs.theneura.com/android/com/neura/standalonesdk/service/NeuraApiClient.html">Neura Sdk Reference</a>.
 3. You can ask question and view existing questions with the Neura tag on <a href="https://stackoverflow.com/questions/tagged/neura?sort=newest&pageSize=30">StackOverflow</a>.
